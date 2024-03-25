@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        padding: 0.5rem;
+      }
+      .calculator {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        gap: 0.5rem;
+        background-color: #31363F;
+        padding: 1rem;
+        border-radius: .25rem;
+      }
+      .input {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .input > div {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .input > div > div {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: #eeeeee;
+        background-color: #222831;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+      }
+
+      .output {
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        background-color: #222831;
+        color: #eeeeee;
+        border-radius: 0.25rem;
+        overflow-x: hidden;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="output"><p id="output-text"></p></div>
+
+      <div class="input">
+        <div>
+          <div onclick="clearOutput()">AC</div>
+          <div onclick="del()">del</div>
+          <div onclick="minOrPlus()">+/-</div>
+          <div onclick="divide()">/</div>
+        </div>
+        <div>
+          <div onclick="seven()">7</div>
+          <div onclick="eight()">8</div>
+          <div onclick="nine()">9</div>
+          <div onclick="multiple()">x</div>
+        </div>
+        <div>
+          <div onclick="four()">4</div>
+          <div onclick="five()">5</div>
+          <div onclick="six()">6</div>
+          <div onclick="min()">-</div>
+        </div>
+        <div>
+          <div onclick="one()">1</div>
+          <div onclick="two()">2</div>
+          <div onclick="three()">3</div>
+          <div onclick="plus()">+</div>
+        </div>
+        <div>
+          <div onclick="percent()">%</div>
+          <div onclick="zero()">0</div>
+          <div onclick="point()">.</div>
+          <div onclick="equal()">=</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const output = document.getElementById("output-text");
+
+      // handle button
+      function clearOutput() {
+        output.textContent = "";
+      }
+
+      function del() {
+        let currentText = output.textContent;
+        if (currentText.length > 0) {
+          output.textContent = currentText.slice(0, -1);
+        }
+      }
+
+      function minOrPlus() {
+        let currentText = output.textContent;
+        if (currentText.length > 0 && currentText !== "0") {
+          if (currentText[0] === "-") {
+            output.textContent = currentText.slice(1);
+          } else {
+            output.textContent = "-" + currentText;
+          }
+        }
+      }
+
+      function divide() {
+        output.textContent += "/";
+      }
+
+      function multiple() {
+        output.textContent += "*";
+      }
+
+      function min() {
+        output.textContent += "-";
+      }
+
+      function plus() {
+        output.textContent += "+";
+      }
+
+      function percent() {
+        let currentText = output.textContent;
+        if (currentText.length > 0) {
+          output.textContent = String(parseFloat(currentText) / 100);
+        }
+      }
+
+      function equal() {
+        let currentText = output.textContent;
+        if (currentText.length > 0) {
+          try {
+            output.textContent = eval(currentText);
+          } catch (error) {
+            output.textContent = "Error";
+          }
+        }
+      }
+
+      function zero() {
+        output.textContent += "0";
+      }
+
+      function one() {
+        output.textContent += "1";
+      }
+
+      function two() {
+        output.textContent += "2";
+      }
+
+      function three() {
+        output.textContent += "3";
+      }
+
+      function four() {
+        output.textContent += "4";
+      }
+
+      function five() {
+        output.textContent += "5";
+      }
+
+      function six() {
+        output.textContent += "6";
+      }
+
+      function seven() {
+        output.textContent += "7";
+      }
+
+      function eight() {
+        output.textContent += "8";
+      }
+
+      function nine() {
+        output.textContent += "9";
+      }
+
+      function point() {
+        let currentText = output.textContent;
+        if (
+          currentText.length === 0 ||
+          currentText[currentText.length - 1] !== "."
+        ) {
+          output.textContent += ".";
+        }
+      }
+
+      // handel keydown
+      document.addEventListener("keydown", function (event) {
+        const key = event.key;
+
+        switch (key) {
+          case "0":
+            zero();
+            break;
+          case "1":
+            one();
+            break;
+          case "2":
+            two();
+            break;
+          case "3":
+            three();
+            break;
+          case "4":
+            four();
+            break;
+          case "5":
+            five();
+            break;
+          case "6":
+            six();
+            break;
+          case "7":
+            seven();
+            break;
+          case "8":
+            eight();
+            break;
+          case "9":
+            nine();
+            break;
+          case ".":
+            point();
+            break;
+          case "+":
+            plus();
+            break;
+          case "-":
+            min();
+            break;
+          case "*":
+            multiple();
+            break;
+          case "/":
+            divide();
+            break;
+          case "Enter":
+            equal();
+            break;
+          case "Backspace":
+            del();
+            break;
+          case "Delete":
+            clearOutput();
+            break;
+          case "c":
+            if (event.ctrlKey) {
+              clearOutput();
+            }
+            break;
+          case "Escape":
+            clearOutput();
+            break;
+          case "%":
+            percent();
+            break;
+          case "m":
+            if (event.ctrlKey) {
+              minOrPlus();
+            }
+            break;
+          default:
+        }
+      });
+    </script>
+  </body>
+</html>

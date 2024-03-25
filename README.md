@@ -2,7 +2,7 @@
 
 This is a simple calculator project built using HTML, CSS, and JavaScript. The calculator can perform basic mathematical operations such as addition, subtraction, multiplication, and division. Additionally, it includes several additional features like deleting the last character, clearing the output, calculating percentages, and changing positive/negative signs.
 
-![Screenshot](images.png)
+![Screenshot](image.png)
 
 ## How to Use
 
